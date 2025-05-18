@@ -21,17 +21,17 @@ $w.onReady(function () {
 
     // Отправляем данные в Google Sheets через вебхук
     const googleWebhookUrl =
-      "https://script.google.com/macros/s/AKfycbySIe66_VgY6ZZzOavGERM1JQttmE4KlGkSc684wsKn1_v8AtTTaADat3_dEojr498teA/exec"; // Замени на URL из Apps Script
+      "https://script.google.com/macros/s/AKfycbySIe66_VgY6ZZzOavGERM1JQttmE4KlGkSc684wsKn1_v8AtTTaADat3_dEojr498teA/exec";
     await fetch(googleWebhookUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
+      mode: "no-cors", // Добавляем этот параметр
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Данные отправлены в Google Sheets:", data);
+      .then(() => {
+        console.log("Данные отправлены в Google Sheets (no-cors mode)");
         $w("#input11").value = "";
         $w("#input12").value = "";
         $w("#input13").value = "";
