@@ -9,17 +9,17 @@ $w.onReady(function () {
       email: $w("#input13").value,
     };
 
-    // Сохраняем в коллекцию Wix
+    // Зберігаємо в колекцію Wix
     await wixData
       .insert("formUser", formData)
       .then(() => {
-        console.log("Данные сохранены в коллекции Wix");
+        console.log("Дані збережено в колекції Wix");
       })
       .catch((err) => {
-        console.log("Ошибка сохранения в Wix:", err);
+        console.log("Помилка збереження в Wix:", err);
       });
 
-    // Отправляем данные в Google Sheets через вебхук
+    // Відправляємо дані в Google Sheets через вебхук
     const googleWebhookUrl =
       "https://script.google.com/macros/s/AKfycbySIe66_VgY6ZZzOavGERM1JQttmE4KlGkSc684wsKn1_v8AtTTaADat3_dEojr498teA/exec";
     await fetch(googleWebhookUrl, {
@@ -28,16 +28,16 @@ $w.onReady(function () {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-      mode: "no-cors", // Добавляем этот параметр
+      mode: "no-cors",
     })
       .then(() => {
-        console.log("Данные отправлены в Google Sheets (no-cors mode)");
+        console.log("Дані відправлено в Google Sheets (режим no-cors)");
         $w("#input11").value = "";
         $w("#input12").value = "";
         $w("#input13").value = "";
       })
       .catch((err) => {
-        console.log("Ошибка отправки в Google Sheets:", err);
+        console.log("Помилка відправки в Google Sheets:", err);
       });
   });
 });
